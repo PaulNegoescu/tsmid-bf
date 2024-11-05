@@ -57,3 +57,30 @@ const promise = api.getAll({
 
 const users = await promise;
 users[0].lastName
+
+const newUser: User = {
+  firstName: 'Andrei',
+  lastName: 'Popescu',
+  email: 'andrei.popescu@yahoo.com',
+  password: 'parola',
+};
+
+const css: CssDeclaration = {
+  'margin-left': '12px'
+}
+
+const prom = api.create(newUser);
+const data = await api.remove(1);
+
+if(typeof data === 'string') {
+  console.log(data.charAt(0));
+}
+
+// const myDiv = document.querySelector<HTMLDivElement>('#test');
+
+// console.log(myDiv?.textContent);
+
+// //typeguard
+// if(myDiv) {
+//   myDiv.textContent = 'blabla';
+// }
