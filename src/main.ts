@@ -1,5 +1,6 @@
 // import { ApiHelper } from "./apiHelper/apiHelper";
-import './exercises';
+// import './exercises';
+import './exercises2';
 
 
 // type BoxModelProperty = 'margin' | 'padding';
