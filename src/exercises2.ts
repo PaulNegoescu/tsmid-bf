@@ -11,16 +11,18 @@ function isPositive(num: number): num is PositiveNumber {
   return num >= 0;
 }
 
+function assertIsPositive(num: number): asserts num is PositiveNumber {
+  if(num < 0) throw new Error('Please provide a positive number');
+}
+
 (async function main(time: number) {
-  if(!isPositive(time)) {
-    return;
-  }
+  assertIsPositive(time);
   // a lot of stuff
   console.log('Before delay');
 
   await delay(time);
   console.log('After delay');
-})(-2000);
+})(2000);
 
 // 2 
 type ValidEmailAddress = string & {__brand: 'ValidEmail'};
@@ -142,16 +144,22 @@ type Person = {
   lastName: string;
 }
 
+function processDataFromServer(data: null): null
+function processDataFromServer(data: string): 0
+function processDataFromServer(data: Person): string
 function processDataFromServer(data: Person | string | null) {
   if (typeof data === 'object' && data !== null) {
     return data.firstName + ' ' + data.lastName;
   } else if(typeof data === 'string') {
     console.error('Error from server', data);
     return 0;
-  } 
+  }
   
   return data;
 }
 
-const result = processDataFromServer({firstName: 'Paul', lastName: 'Negoescu'});
+const result = processDataFromServer(null);
+
+console.log(result);
+
 
