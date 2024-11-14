@@ -7,7 +7,46 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app"></div>
+    <form data-form="register">
+      <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+      </div>
+      <!-- <div>
+        <label for="retypePassword">Retype Password</label>
+        <input type="password" name="retypePassword" id="retypePassword">
+      </div> -->
+
+      <div>
+        <label for="firstName">First Name</label>
+        <input type="text" name="firstName" id="firstName">
+      </div>
+      <div>
+        <label for="lastName">Last Name</label>
+        <input type="text" name="lastName" id="lastName">
+      </div>
+      <div>
+        <button type="submit">Register</button>
+      </div>
+    </form>
+
+    <form data-form="login">
+      <div>
+        <label for="email2">Email</label>
+        <input type="email" name="email" id="email2">
+      </div>
+      <div>
+        <label for="password2">Password</label>
+        <input type="password" name="password" id="password2">
+      </div>
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </form>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "json-server-auth --watch db.json -r routes.json",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "json-server": "^0.17.4",
+    "json-server-auth": "^2.1.0",
     "typescript": "~5.6.2",
     "vite": "^5.4.9"
   }

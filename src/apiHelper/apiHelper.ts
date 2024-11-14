@@ -55,7 +55,7 @@ export class ApiHelper<T extends object> {
     return fetch(`${this.apiUrl}${this.resource}/${id}`, config).then(this.processResponse);
   }
 
-  create<C extends T>(body: C, config: FetchConfig = {}): Promise<T> {
+  create<C>(body: T, config: FetchConfig = {}): Promise<C> {
     const options: RequestInit = structuredClone(config);
     options.method = 'POST';
     options.headers = {

@@ -1,1 +1,1 @@
-export const resources = ['users', 'notes', 'products'] as const;
+export const resources = ['users', 'notes', 'login', 'register'] as const;

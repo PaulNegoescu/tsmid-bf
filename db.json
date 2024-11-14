@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "email": "p@p.com",
+      "password": "$2a$10$5jnm5RVjm8eY7/AlYCnYxucS6Cse5hkEG.5TzR6kVl7Un8Dcy29Ta",
+      "firstName": "Paul",
+      "lastName": "Negoescu",
+      "id": 1
+    }
+  ],
+  "notes": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Test note",
+      "content": "Some content bla bla",
+      "color": "rgb(100, 200, 0)"
+    }
+  ]
+}
