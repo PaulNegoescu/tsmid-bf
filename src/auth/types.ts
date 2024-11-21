@@ -7,3 +7,5 @@ export type User = {
 export type UserWithId = User & { id: number };
 
 export type UserWithPassword = User & { password: string };
+
+export type AuthInfo = { user: UserWithId, accessToken: string };

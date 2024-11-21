@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+      <button type="button" class="addButton" data-add-note>+</button>
+      <section data-notes-container>
+        <h1>Notes</h1>
+      </section>
+
+      <template id="notes-template">
+        <article class="note" data-note="">
+          <header>
+            <h2 contenteditable>Title of the Note</h2>
+          </header>
+          <div contenteditable>Content of the note</div>
+          <footer>
+            <button type="button" data-save-note disabled>Save</button>
+            <input type="color" />
+          </footer>
+        </article>
+      </template>
+      <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

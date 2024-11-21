@@ -29,7 +29,7 @@ type SearchObj = {
 //   [Index in Key]: Val
 // }
 
-type FetchConfig = Omit<RequestInit, 'method' | 'body'>;
+type FetchConfig = Omit<RequestInit, 'method' | 'body'> & { accessToken?: string };
 
 export class ApiHelper<T extends object> {
   private apiUrl: string = import.meta.env.VITE_API_URL;
@@ -55,7 +55,7 @@ export class ApiHelper<T extends object> {
     return fetch(`${this.apiUrl}${this.resource}/${id}`, config).then(this.processResponse);
   }
 
-  create<C>(body: T, config: FetchConfig = {}): Promise<C> {
+  create<C>(body: Omit<T, 'id'>, config: FetchConfig = {}): Promise<C> {
     const options: RequestInit = structuredClone(config);
     options.method = 'POST';
     options.headers = {
@@ -63,6 +63,7 @@ export class ApiHelper<T extends object> {
       ...this.contentTypeHeader,
     };
     options.body = JSON.stringify(body);
+    config.accessToken && this.addAuthHeader(options.headers, config.accessToken);
 
     return fetch(`${this.apiUrl}${this.resource}`, options).then(this.processResponse);
   }
@@ -91,5 +92,9 @@ export class ApiHelper<T extends object> {
       throw new Error("Something didn't go right, please try again later!");
     }
     return res.json();
+  }
+
+  private addAuthHeader(headers, token) {
+    headers.Authorization = `Bearer ${token}`;
   }
 }
