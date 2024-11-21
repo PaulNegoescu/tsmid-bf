@@ -17,6 +17,7 @@
   remove(id)
   // returns an empty object
 */
+import { authInfo } from '../auth/auth';
 import { resources } from '../config';
 
 type Resource = (typeof resources)[number];
@@ -39,12 +40,14 @@ export class ApiHelper<T extends object> {
 
   constructor(private resource: ResourceUrlPart) {}
 
-  getAll(config?: FetchConfig & SearchObj): Promise<T[]> {
+  getAll(config: FetchConfig & SearchObj = {}): Promise<T[]> {
     //http://localhost:3000/users?firstName=Paul&lastName=Negoescu
     let searchUrl = '';
     if(config && 'search' in config) {
       searchUrl = (new URLSearchParams(config.search)).toString();
     }
+
+    authInfo.accessToken && this.addAuthHeader(config, authInfo.accessToken);
 
     return fetch(`${this.apiUrl}${this.resource}${searchUrl && '?' + searchUrl}`, config).then(
       this.processResponse
@@ -63,7 +66,7 @@ export class ApiHelper<T extends object> {
       ...this.contentTypeHeader,
     };
     options.body = JSON.stringify(body);
-    config.accessToken && this.addAuthHeader(options.headers, config.accessToken);
+    config.accessToken && this.addAuthHeader(options, config.accessToken);
 
     return fetch(`${this.apiUrl}${this.resource}`, options).then(this.processResponse);
   }
@@ -94,7 +97,10 @@ export class ApiHelper<T extends object> {
     return res.json();
   }
 
-  private addAuthHeader(headers, token) {
-    headers.Authorization = `Bearer ${token}`;
+  private addAuthHeader(options: RequestInit, token: string) {
+    options.headers = {
+      ...options.headers,
+      Authorization: `Bearer ${token}`,
+    }
   }
 }

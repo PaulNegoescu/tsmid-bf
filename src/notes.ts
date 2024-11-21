@@ -18,9 +18,12 @@ function handleAddNewNote() {
   const newNote = template.content.cloneNode(true) as DocumentFragment;
   const noteElem = newNote.querySelector<HTMLElement>('[data-note]');
   noteElem?.addEventListener('input', handleNoteContentChange);
-  newNote.querySelector('[data-save-note]')?.addEventListener('click', handleSave);
+  newNote
+    .querySelector('[data-save-note]')
+    ?.addEventListener('click', handleSave);
 
   container.append(newNote);
+  return noteElem;
 }
 
 function handleNoteContentChange(this: HTMLElement) {
@@ -33,7 +36,7 @@ async function handleSave(this: HTMLButtonElement) {
 
   if (!noteId) {
     const createdNote = await createNote(elem);
-    if(createdNote) {
+    if (createdNote) {
       elem.dataset.note = String(createdNote.id);
       console.log(createdNote);
       this.disabled = true;
@@ -60,5 +63,19 @@ function createNote(noteElem: HTMLElement) {
     userId: authInfo.user.id,
   };
 
-  return api.create<Note>(newNote, {accessToken: authInfo.accessToken});
+  return api.create<Note>(newNote, { accessToken: authInfo.accessToken });
 }
+
+// IIFE
+(async function init() {
+  const data = await api.getAll({
+    search: { userId: String(authInfo.user?.id) },
+  });
+
+  for (const note of data) {
+    const noteElem = handleAddNewNote();
+    if (!noteElem) continue;
+    noteElem.querySelector('h2')!.textContent = note.title;
+    noteElem.querySelector('div')!.textContent = note.content;
+  }
+})();
